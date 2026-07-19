@@ -6,6 +6,84 @@ let savedEpisode = parseInt(localStorage.getItem(`lastEpisode_${animeId}`)) || n
 let currentEpisode = parseInt(urlParams.get('ep')) || savedEpisode || 1;
 let activeServerSelectionCode = parseInt(localStorage.getItem('selectedServer')) || 1;
 
+// --- Watch progress tracking (Servers 1 & 2 / MegaPlay only support this via postMessage) ---
+function formatTimecode(totalSeconds) {
+  const secs = Math.max(0, Math.floor(totalSeconds));
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function getSavedProgress(forAnimeId, forEpisode) {
+  try {
+    const raw = localStorage.getItem(`watchProgress_${forAnimeId}_${forEpisode}`);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function saveProgress(forAnimeId, forEpisode, currentTime, duration) {
+  try {
+    localStorage.setItem(
+      `watchProgress_${forAnimeId}_${forEpisode}`,
+      JSON.stringify({ time: currentTime, duration: duration || 0, savedAt: Date.now() })
+    );
+  } catch {
+    // localStorage unavailable / quota exceeded — fail silently
+  }
+}
+
+function updateResumeNote() {
+  const noteEl = document.getElementById("resumeNote");
+  if (!noteEl || !animeId) return;
+  const progress = getSavedProgress(animeId, currentEpisode);
+  if (
+    progress &&
+    progress.time > 10 &&
+    (!progress.duration || progress.time < progress.duration - 15)
+  ) {
+    const durationText = progress.duration ? ` / ${formatTimecode(progress.duration)}` : "";
+    noteEl.innerHTML = `<i class="fas fa-clock-rotate-left"></i> You left off at ${formatTimecode(progress.time)}${durationText} — drag the player's seek bar to jump back in.`;
+  } else {
+    noteEl.textContent = "";
+  }
+}
+
+let lastProgressSaveAt = 0;
+window.addEventListener("message", (event) => {
+  let data = event.data;
+  if (typeof data === "string") {
+    try {
+      data = JSON.parse(data);
+    } catch {
+      return;
+    }
+  }
+  if (!data || !animeId) return;
+
+  let currentTime = null;
+  let duration = null;
+
+  if (data.event === "time" && typeof data.time === "number") {
+    currentTime = data.time;
+    duration = data.duration;
+  } else if (data.type === "watching-log" && typeof data.currentTime === "number") {
+    currentTime = data.currentTime;
+    duration = data.duration;
+  }
+
+  if (currentTime === null) return;
+
+  // Throttle writes to localStorage to roughly once every 5 seconds
+  const now = Date.now();
+  if (now - lastProgressSaveAt < 5000) return;
+  lastProgressSaveAt = now;
+
+  saveProgress(animeId, currentEpisode, currentTime, duration);
+});
+
 
 const watchQuery = `
 query ($id: Int) {
@@ -184,11 +262,81 @@ async function initializeWatchPlayer() {
     await ensureServerAvailability();
     updateServerButtons();
     executePlayerUrlRefresh();
+    updateResumeNote();
 
     const episodeDropdown = document.getElementById("episodeDropdown");
     const episodeDropdownLabel = document.getElementById("episodeDropdownLabel");
+    const episodeRangeTabs = document.getElementById("episodeRangeTabs");
+
+    // Bundle long series into chunks (1-100, 101-200, ...) so the dropdown
+    // doesn't turn into an endless scroll for shows with hundreds of episodes.
+    const EPISODE_CHUNK_SIZE = 100;
+    const episodeRanges = [];
+    for (let start = 1; start <= totalEpisodesCount; start += EPISODE_CHUNK_SIZE) {
+      episodeRanges.push({ start, end: Math.min(start + EPISODE_CHUNK_SIZE - 1, totalEpisodesCount) });
+    }
+
+    function findRangeForEpisode(episodeNum) {
+      return episodeRanges.find(r => episodeNum >= r.start && episodeNum <= r.end) || episodeRanges[0];
+    }
+
+    let activeRange = findRangeForEpisode(currentEpisode);
+
+    function renderEpisodeItems(range) {
+      episodeGrid.innerHTML = "";
+      for (let i = range.start; i <= range.end; i++) {
+        const epBtn = document.createElement("a");
+        epBtn.className = "ep-item";
+        epBtn.dataset.episode = i;
+        if (i === currentEpisode) epBtn.classList.add("active");
+        epBtn.textContent = `Episode ${i}`;
+        epBtn.href = "#";
+        epBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          currentEpisode = i;
+          localStorage.setItem(`lastEpisode_${animeId}`, currentEpisode);
+          ensureServerAvailability();
+          executePlayerUrlRefresh();
+          setActiveEpisodeButton(i);
+          updateResumeNote();
+          closeEpisodeDropdown();
+        });
+        episodeGrid.appendChild(epBtn);
+      }
+    }
+
+    function renderRangeTabs() {
+      if (!episodeRangeTabs) return;
+      if (episodeRanges.length <= 1) {
+        episodeRangeTabs.innerHTML = "";
+        episodeRangeTabs.style.display = "none";
+        return;
+      }
+      episodeRangeTabs.style.display = "flex";
+      episodeRangeTabs.innerHTML = "";
+      episodeRanges.forEach(range => {
+        const tabBtn = document.createElement("button");
+        tabBtn.type = "button";
+        tabBtn.className = "range-tab";
+        if (range === activeRange) tabBtn.classList.add("active");
+        tabBtn.textContent = `${range.start}-${range.end}`;
+        tabBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          activeRange = range;
+          renderRangeTabs();
+          renderEpisodeItems(activeRange);
+        });
+        episodeRangeTabs.appendChild(tabBtn);
+      });
+    }
 
     function setActiveEpisodeButton(episodeNum) {
+      const targetRange = findRangeForEpisode(episodeNum);
+      if (targetRange !== activeRange) {
+        activeRange = targetRange;
+        renderRangeTabs();
+        renderEpisodeItems(activeRange);
+      }
       document.querySelectorAll(".ep-item").forEach(btn => btn.classList.remove("active"));
       const targetBtn = [...document.querySelectorAll(".ep-item")].find(el => parseInt(el.dataset.episode) === episodeNum);
       if (targetBtn) targetBtn.classList.add("active");
@@ -202,26 +350,8 @@ async function initializeWatchPlayer() {
       if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false");
     }
 
-    episodeGrid.innerHTML = "";
-    for (let i = 1; i <= totalEpisodesCount; i++) {
-      const epBtn = document.createElement("a");
-      epBtn.className = "ep-item";
-      epBtn.dataset.episode = i;
-      if (i === currentEpisode) epBtn.classList.add("active");
-      epBtn.textContent = `Episode ${i}`;
-      epBtn.href = "#";
-      epBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        currentEpisode = i;
-        localStorage.setItem(`lastEpisode_${animeId}`, currentEpisode);
-        ensureServerAvailability();
-        executePlayerUrlRefresh();
-        setActiveEpisodeButton(i);
-        closeEpisodeDropdown();
-      });
-      episodeGrid.appendChild(epBtn);
-    }
-
+    renderRangeTabs();
+    renderEpisodeItems(activeRange);
     setActiveEpisodeButton(currentEpisode);
 
     if (episodeDropdown) {
@@ -246,6 +376,7 @@ async function initializeWatchPlayer() {
           ensureServerAvailability();
           executePlayerUrlRefresh();
           setActiveEpisodeButton(currentEpisode);
+          updateResumeNote();
         }
       });
     }
@@ -254,6 +385,7 @@ async function initializeWatchPlayer() {
     animeTitleHeader.textContent = "Failed to connect to AniList";
   }
 }
+
 
 initializeWatchPlayer();
 

@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Watch Anime Online - MTCH Enterpriseanime</title>
     <link rel="icon" type="image/png" href="./Iroha.png">
-    <link rel="stylesheet" href="./style.css?v=1784484377">
+    <link rel="stylesheet" href="./style.css?v=1784485097">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./stylesheet.css?v=1784484377">
+    <link rel="stylesheet" href="./stylesheet.css?v=1784485097">
 </head>
 <body>
     <header>
@@ -70,7 +70,7 @@
             
             <div class="left-poster-column" style="flex: 0 0 240px; width: 240px; margin: 0 auto;">
                 <img id="anime-poster" src="" alt="Loading Poster..." style="width: 100%; border-radius: 6px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); aspect-ratio: 2 / 3; object-fit: cover;">
-                <a id="play-now-btn" href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; background-color: #00a0e9; color: white; text-align: center; padding: 12px; border-radius: 6px; margin-top: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 14px rgba(0, 160, 233, 0.4); transition: background 0.2s;">
+                <a id="play-now-btn" href="#" style="display: flex; align-items: center; justify-content: center; gap: 8px; background-color: #7c3aed; color: white; text-align: center; padding: 12px; border-radius: 6px; margin-top: 15px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4); transition: background 0.2s;">
                     <i class="fas fa-play"></i> Play Now
                 </a>
             </div>
@@ -80,17 +80,17 @@
                 
                 <div class="metadata-row" style="display: flex; gap: 15px; align-items: center; color: #94a3b8; font-size: 14px; flex-wrap: wrap;">
                     <span style="background-color: #1e293b; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 12px;" id="anime-format">--</span>
-                    <span><i class="fas fa-calendar-alt" style="color: #4ed9ff;"></i> <span id="anime-year">----</span></span>
-                    <span><i class="fas fa-film" style="color: #4ed9ff;"></i> <span id="anime-episodes">--</span> Episodes</span>
+                    <span><i class="fas fa-calendar-alt" style="color: #b06bff;"></i> <span id="anime-year">----</span></span>
+                    <span><i class="fas fa-film" style="color: #b06bff;"></i> <span id="anime-episodes">--</span> Episodes</span>
                     <span id="anime-rating" style="color: #fbbf24; font-weight: bold;"><i class="fas fa-star"></i> --</span>
                 </div>
 
                 <div id="genres-badges-row" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 5px;">
-                    <span class="genre-badge" style="background-color: #23495f; color: #8bdcff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;">Loading...</span>
+                    <span class="genre-badge" style="background-color: #2b1f40; color: #8bdcff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;">Loading...</span>
                 </div>
 
                 <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px; margin-top: 5px;">
-                    <h3 style="color: #4ed9ff; font-size: 16px; margin-bottom: 8px;">Synopsis</h3>
+                    <h3 style="color: #b06bff; font-size: 16px; margin-bottom: 8px;">Synopsis</h3>
                     <p id="anime-synopsis" style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin: 0; text-align: left; font-family: inherit;">
                         Loading data summary, please wait...
                     </p>
@@ -99,7 +99,7 @@
         </div>
 
         <div class="characters-section">
-            <h3 class="characters-title"><i class="fas fa-users" style="color: #4ed9ff;"></i> Main Characters</h3>
+            <h3 class="characters-title"><i class="fas fa-users" style="color: #b06bff;"></i> Main Characters</h3>
             <div id="characters-container" class="characters-scroll-container">
                 <p style="color: #8bdcff; font-size: 13px; width: 100%; text-align: left;">Loading character directory...</p>
             </div>
@@ -197,7 +197,7 @@ async function loadDynamicTemplate() {
     animeData.genres.forEach(genre => {
       const spanElement = document.createElement("span");
       spanElement.className = "genre-badge";
-      spanElement.style.cssText = "background-color: #23495f; color: #8bdcff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;";
+      spanElement.style.cssText = "background-color: #2b1f40; color: #8bdcff; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600;";
       spanElement.textContent = genre;
       genresRow.appendChild(spanElement);
     });
@@ -240,6 +240,6 @@ async function loadDynamicTemplate() {
 
 loadDynamicTemplate();
     </script>
-    <script src="./script.js?v=1784484377"></script>
+    <script src="./script.js?v=1784485097"></script>
 </body>
 </html>

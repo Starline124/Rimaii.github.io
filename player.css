@@ -39,9 +39,9 @@
 }
 
 .server-btn {
-    background: #0f141c;
+    background: #170f22;
     color: var(--text-main);
-    border: 1px solid #2f3b4c;
+    border: 1px solid #3a2c50;
     padding: 6px 16px;
     border-radius: 4px;
     cursor: pointer;

@@ -10,7 +10,7 @@ query {
       nextAiringEpisode { episode }
     }
   }
-  trending: Page (page: 1, perPage: 500) { 
+  trending: Page (page: 1, perPage: 50) { 
     media (type: ANIME, sort: TRENDING_DESC) {
       id
       title { english romaji }
@@ -87,7 +87,7 @@ function renderTrendingPage(page = 1) {
 
     trendingContainer.innerHTML = "";
     if (pageItems.length === 0) {
-        trendingContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>No trending anime available.</p>";
+        trendingContainer.innerHTML = "<p style='padding-left: 5px; color: #b06bff; width: 100%; grid-column: 1 / -1;'>No trending anime available.</p>";
     } else {
         trendingContainer.insertAdjacentHTML("beforeend", pageItems.map(anime => generateCardHtml(anime)).join(""));
     }
@@ -103,8 +103,8 @@ async function loadHomepageDatabase() {
     
     if(!recommendedContainer || !trendingContainer) return;
 
-    recommendedContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>⏳ Loading recommendations...</p>";
-    trendingContainer.innerHTML = "<p style='padding-left: 5px; color: #4ed9ff; width: 100%; grid-column: 1 / -1;'>⏳ Loading trending database...</p>";
+    recommendedContainer.innerHTML = "<p style='padding-left: 5px; color: #b06bff; width: 100%; grid-column: 1 / -1;'>⏳ Loading recommendations...</p>";
+    trendingContainer.innerHTML = "<p style='padding-left: 5px; color: #b06bff; width: 100%; grid-column: 1 / -1;'>⏳ Loading trending database...</p>";
 
     try {
         const response = await fetch("https://graphql.anilist.co", {
@@ -231,7 +231,7 @@ function injectSafeTutorialModal() {
             padding: 20px; box-sizing: border-box;
         }
         .m-modal-card {
-            background: #111c24; border: 1px solid #1f3747; color: #fff;
+            background: #1c1229; border: 1px solid #1f3747; color: #fff;
             padding: 30px; border-radius: 12px; max-width: 460px; width: 100%;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7); transform: translateY(-20px);
             transition: transform 0.4s ease; position: relative; box-sizing: border-box;
@@ -241,14 +241,14 @@ function injectSafeTutorialModal() {
             font-size: 26px; cursor: pointer; transition: color 0.2s;
         }
         .m-modal-close:hover { color: #e74c3c; }
-        .m-title { color: #4ed9ff; font-size: 22px; margin: 0 0 5px 0; font-weight: 600; }
+        .m-title { color: #b06bff; font-size: 22px; margin: 0 0 5px 0; font-weight: 600; }
         .m-subtitle { color: #8a99a6; font-size: 13px; margin: 0 0 20px 0; line-height: 1.4; }
         .m-step { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
-        .m-icon { background: rgba(78, 217, 255, 0.1); color: #4ed9ff; min-width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .m-icon { background: rgba(176, 107, 255, 0.1); color: #b06bff; min-width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .m-text { font-size: 13.5px; color: #d1dbe3; line-height: 1.5; }
         .m-text strong { color: #fff; display: block; margin-bottom: 2px; }
-        .m-btn { width: 100%; background: #00a0e9; color: #fff; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
-        .m-btn:hover { background: #0089c7; }
+        .m-btn { width: 100%; background: #7c3aed; color: #fff; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+        .m-btn:hover { background: #6d28d9; }
     `;
     document.head.appendChild(cssStyle);
 
@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         async function loadAllAnimePaginated(page) {
-            allAnimeContainer.innerHTML = `<p style="color: #4ed9ff; width: 100%; text-align: center; grid-column: 1 / -1;">Loading...</p>`;
+            allAnimeContainer.innerHTML = `<p style="color: #b06bff; width: 100%; text-align: center; grid-column: 1 / -1;">Loading...</p>`;
             
             const query = `
             query ($page: Int, $genre: String, $format: MediaFormat, $search: String, $seasonYear: Int, $status: MediaStatus, $season: MediaSeason) { 

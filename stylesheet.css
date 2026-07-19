@@ -1,5 +1,5 @@
 body {
-  background-color: #121f26;
+  background-color: #180f22;
 }
 p {
   color: white;
@@ -33,7 +33,7 @@ a {
 
 .follow-us-card {
     flex: 1 1 200px;
-    background-color: #23495f;
+    background-color: #2b1f40;
     padding: 20px 22px;
     border-radius: 8px;
     display: flex;
@@ -58,7 +58,7 @@ a {
 }
 
 .follow-us-card a:hover {
-    color: #4ed9ff;
+    color: #b06bff;
 }
 
 @media (max-width: 600px) {
@@ -210,7 +210,7 @@ a {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: #00a0e9;
+    background-color: #7c3aed;
     color: #ffffff;
     text-decoration: none;
     font-family: sans-serif;
@@ -220,13 +220,13 @@ a {
     letter-spacing: 0.5px;
     padding: 14px 50px; 
     border-radius: 6px;
-    box-shadow: 0 4px 14px rgba(0, 160, 233, 0.4);
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
     transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
 }
 
 .play-now-btn:hover {
     background-color: #008ecf;
-    box-shadow: 0 6px 18px rgba(0, 160, 233, 0.6);
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.6);
 }
 
 .play-now-btn:active {
@@ -245,7 +245,7 @@ a {
 
 
         body {
-            background-color: #121f26;
+            background-color: #180f22;
             margin: 0;
             padding: 0;
             font-family: sans-serif;
@@ -266,7 +266,7 @@ a {
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
             gap: 14px;
             padding: 10px 20px 20px 20px;
-            background-color: #121f26;
+            background-color: #180f22;
         }
 
         /* .trending-controls button styling now lives in style.css,
@@ -458,7 +458,7 @@ a {
 
 
 .modern-footer {
-  background-color: #121f26; 
+  background-color: #180f22; 
   color: #7a7a7a;            
   padding: 60px 4% 30px 4%;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;

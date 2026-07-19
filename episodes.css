@@ -22,9 +22,9 @@
     justify-content: space-between;
     gap: 20px;
     min-width: 160px;
-    background: #0f141c;
+    background: #170f22;
     color: var(--text-light);
-    border: 1px solid #2f3b4c;
+    border: 1px solid #3a2c50;
     padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
@@ -51,29 +51,71 @@
     left: 0;
     z-index: 500;
     display: none;
-    grid-template-columns: repeat(4, minmax(80px, 1fr));
-    gap: 6px;
+    flex-direction: column;
+    gap: 8px;
     width: max-content;
     max-width: 90vw;
-    max-height: 320px;
+    max-height: 380px;
     overflow-y: auto;
-    background: #111c24;
-    border: 1px solid #2f3b4c;
+    background: #1c1229;
+    border: 1px solid #3a2c50;
     border-radius: 6px;
     padding: 10px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
 .episode-dropdown.open .episode-dropdown-menu {
+    display: flex;
+}
+
+.episode-range-tabs {
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #3a2c50;
+    position: sticky;
+    top: 0;
+    background: #1c1229;
+    z-index: 1;
+}
+
+.range-tab {
+    background: #170f22;
+    color: var(--text-main);
+    border: 1px solid #3a2c50;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.range-tab:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.range-tab.active {
+    background: var(--accent);
+    color: #0d0a12;
+    border-color: var(--accent);
+    font-weight: bold;
+}
+
+.episode-grid {
     display: grid;
+    grid-template-columns: repeat(4, minmax(80px, 1fr));
+    gap: 6px;
 }
 
 .ep-item {
     display: block;
     width: 100%;
-    background: #0f141c;
+    background: #170f22;
     color: var(--text-main);
-    border: 1px solid #2f3b4c;
+    border: 1px solid #3a2c50;
     padding: 8px 10px;
     text-align: center;
     border-radius: 4px;
@@ -84,13 +126,19 @@
 }
 
 .ep-item:hover, .ep-item.active {
-    background: #2f3b4c;
+    background: #3a2c50;
     color: var(--accent);
     border-color: var(--accent);
 }
 
+.resume-note {
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin: -4px 0 8px 0;
+}
+
 @media (max-width: 480px) {
-    .episode-dropdown-menu {
+    .episode-grid {
         grid-template-columns: repeat(3, minmax(70px, 1fr));
     }
 }
