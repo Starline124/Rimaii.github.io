@@ -1,0 +1,27 @@
+{
+  "background_color": "#3d2484",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "MTCH Anime",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "mtcha anime",
+  "start_url": "/",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "https://mtchcoding.github.io/Rimaii.github.io/Iroha.png",
+      "type": "image/png",
+      "isSquare": false,
+      "isPng": true,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "description": "Free anime for my family",
+  "id": "MTCH"
+}
