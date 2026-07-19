@@ -1,29 +1,71 @@
-.sidebar-content {
-    background: var(--bg-card);
-    border-radius: 6px;
-    padding: 15px;
-    max-height: 680px;
+.episode-picker {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
 }
 
-.sidebar-title {
+.episode-picker-label {
+    font-weight: bold;
     color: var(--text-light);
-    margin-bottom: 15px;
-    font-size: 1.3rem;
-    border-bottom: 1px solid #2f3b4c;
-    padding-bottom: 8px;
+    white-space: nowrap;
 }
 
-.episode-list-scroll {
-    overflow-y: auto;
-    flex: 1;
+.episode-dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.episode-list {
+.episode-dropdown-toggle {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-width: 160px;
+    background: #0f141c;
+    color: var(--text-light);
+    border: 1px solid #2f3b4c;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.episode-dropdown-toggle:hover,
+.episode-dropdown.open .episode-dropdown-toggle {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.episode-dropdown-toggle i {
+    transition: transform 0.2s ease;
+}
+
+.episode-dropdown.open .episode-dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.episode-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 500;
+    display: none;
+    grid-template-columns: repeat(4, minmax(80px, 1fr));
+    gap: 6px;
+    width: max-content;
+    max-width: 90vw;
+    max-height: 320px;
+    overflow-y: auto;
+    background: #111c24;
+    border: 1px solid #2f3b4c;
+    border-radius: 6px;
+    padding: 10px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.episode-dropdown.open .episode-dropdown-menu {
+    display: grid;
 }
 
 .ep-item {
@@ -32,16 +74,23 @@
     background: #0f141c;
     color: var(--text-main);
     border: 1px solid #2f3b4c;
-    padding: 10px 15px;
-    text-align: left;
+    padding: 8px 10px;
+    text-align: center;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
 }
 
 .ep-item:hover, .ep-item.active {
     background: #2f3b4c;
     color: var(--accent);
     border-color: var(--accent);
+}
+
+@media (max-width: 480px) {
+    .episode-dropdown-menu {
+        grid-template-columns: repeat(3, minmax(70px, 1fr));
+    }
 }

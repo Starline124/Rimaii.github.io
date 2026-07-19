@@ -106,20 +106,24 @@
                 </div>
             </section>
 
+            <section class="episode-picker" aria-labelledby="episodeDropdownLabel">
+                <span class="episode-picker-label">Episodes:</span>
+                <div class="episode-dropdown" id="episodeDropdown">
+                    <button type="button" class="episode-dropdown-toggle" id="episodeDropdownToggle" aria-haspopup="true" aria-expanded="false">
+                        <span id="episodeDropdownLabel">Episode 1</span>
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                    <div class="episode-dropdown-menu" id="episodeListContainer" role="menu" aria-label="Episode navigation selection">
+                    </div>
+                </div>
+            </section>
+
             <section class="anime-metadata" aria-labelledby="animeTitleHeader">
                 <h1 id="animeTitleHeader" class="anime-title">Loading Anime...</h1>
                 <h2 id="episodeIndicator" class="episode-indicator">Episode --</h2>
                 <p id="animeDescription" class="anime-description"></p>
             </section>
         </div>
-
-        <aside class="sidebar-content" aria-labelledby="episodeListHeader">
-            <h3 id="episodeListHeader" class="sidebar-title">Episodes</h3>
-            <div class="episode-list-scroll">
-                <nav class="episode-list" id="episodeListContainer" aria-label="Episode navigation selection">
-                </nav>
-            </div>
-        </aside>
     </main>
 
     <script src="api.js"></script>

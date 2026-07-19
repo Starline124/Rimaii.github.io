@@ -185,10 +185,28 @@ async function initializeWatchPlayer() {
     updateServerButtons();
     executePlayerUrlRefresh();
 
+    const episodeDropdown = document.getElementById("episodeDropdown");
+    const episodeDropdownLabel = document.getElementById("episodeDropdownLabel");
+
+    function setActiveEpisodeButton(episodeNum) {
+      document.querySelectorAll(".ep-item").forEach(btn => btn.classList.remove("active"));
+      const targetBtn = [...document.querySelectorAll(".ep-item")].find(el => parseInt(el.dataset.episode) === episodeNum);
+      if (targetBtn) targetBtn.classList.add("active");
+      if (episodeDropdownLabel) episodeDropdownLabel.textContent = `Episode ${episodeNum}`;
+    }
+
+    function closeEpisodeDropdown() {
+      if (!episodeDropdown) return;
+      episodeDropdown.classList.remove("open");
+      const toggleBtn = document.getElementById("episodeDropdownToggle");
+      if (toggleBtn) toggleBtn.setAttribute("aria-expanded", "false");
+    }
+
     episodeGrid.innerHTML = "";
     for (let i = 1; i <= totalEpisodesCount; i++) {
       const epBtn = document.createElement("a");
       epBtn.className = "ep-item";
+      epBtn.dataset.episode = i;
       if (i === currentEpisode) epBtn.classList.add("active");
       epBtn.textContent = `Episode ${i}`;
       epBtn.href = "#";
@@ -198,10 +216,24 @@ async function initializeWatchPlayer() {
         localStorage.setItem(`lastEpisode_${animeId}`, currentEpisode);
         ensureServerAvailability();
         executePlayerUrlRefresh();
-        document.querySelectorAll(".ep-item").forEach(btn => btn.classList.remove("active"));
-        epBtn.classList.add("active");
+        setActiveEpisodeButton(i);
+        closeEpisodeDropdown();
       });
       episodeGrid.appendChild(epBtn);
+    }
+
+    setActiveEpisodeButton(currentEpisode);
+
+    if (episodeDropdown) {
+      const toggleBtn = document.getElementById("episodeDropdownToggle");
+      toggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = episodeDropdown.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+      document.addEventListener("click", (e) => {
+        if (!episodeDropdown.contains(e.target)) closeEpisodeDropdown();
+      });
     }
 
     
@@ -213,9 +245,7 @@ async function initializeWatchPlayer() {
           localStorage.setItem(`lastEpisode_${animeId}`, currentEpisode);
           ensureServerAvailability();
           executePlayerUrlRefresh();
-          document.querySelectorAll(".ep-item").forEach(btn => btn.classList.remove("active"));
-          const nextBtn = [...document.querySelectorAll(".ep-item")].find(el => el.textContent.includes(currentEpisode));
-          if (nextBtn) nextBtn.classList.add("active");
+          setActiveEpisodeButton(currentEpisode);
         }
       });
     }
