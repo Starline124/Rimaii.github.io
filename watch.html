@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="./Iroha.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="watch-page-title">MiraiAnime | Watch</title>
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="player.css">
+  <link rel="stylesheet" href="episodes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul class='nav-bar'>
+                <input type='checkbox' id='check' />
+                <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+                <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+
+                <li class='logo'>
+                    <a href='index.html'><img src='New Project 60 [25AD541].png' alt="Logo"/></a>
+                </li>
+                
+                <li class="nav-search-item">
+                    <div class="search-wrap">
+                        <span class="search-icon" id="animeSearchBtn"><i class="fas fa-search"></i></span>
+                        <input type="text" id="animeSearchBox" placeholder="Search anime...">
+                    </div>
+                </li>
+
+                <span class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    
+                    <li class="nav-dropdown">
+                        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Genre <i class="fas fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><button class="genre-link" data-genre="Action">Action</button></li>
+                            <li><button class="genre-link" data-genre="Adventure">Adventure</button></li>
+                            <li><button class="genre-link" data-genre="Comedy">Comedy</button></li>
+                            <li><button class="genre-link" data-genre="Drama">Drama</button></li>
+                            <li><button class="genre-link" data-genre="Ecchi">Ecchi</button></li>
+                            <li><button class="genre-link" data-genre="Fantasy">Fantasy</button></li>
+                            <li><button class="genre-link" data-genre="Horror">Horror</button></li>
+                            <li><button class="genre-link" data-genre="Mahou Shoujo">Magical Girl</button></li>
+                            <li><button class="genre-link" data-genre="Mecha">Mecha</button></li>
+                            <li><button class="genre-link" data-genre="Music">Music</button></li>
+                            <li><button class="genre-link" data-genre="Mystery">Mystery</button></li>
+                            <li><button class="genre-link" data-genre="Psychological">Psychological</button></li>
+                            <li><button class="genre-link" data-genre="Romance">Romance</button></li>
+                            <li><button class="genre-link" data-genre="Sci-Fi">Sci-Fi</button></li>
+                            <li><button class="genre-link" data-genre="Slice of Life">Slice of Life</button></li>
+                            <li><button class="genre-link" data-genre="Sports">Sports</button></li>
+                            <li><button class="genre-link" data-genre="Supernatural">Supernatural</button></li>
+                            <li><button class="genre-link" data-genre="Thriller">Thriller</button></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-dropdown">
+                        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                            Types <i class="fas fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><button type="button" class="types-link" data-type="TV">TV Series</button></li>
+                            <li><button type="button" class="types-link" data-type="MOVIE">Movies</button></li>
+                            <li><button type="button" class="types-link" data-type="OVA">OVAs</button></li>
+                            <li><button type="button" class="types-link" data-type="ONA">ONAs</button></li>
+                            <li><button type="button" class="types-link" data-type="SPECIAL">Specials</button></li>
+                            <li><button type="button" class="types-link" data-type="MUSIC">Music</button></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="">Updated</a></li>
+                    <li><a href="">Feedback</a></li>
+                    
+                </span>
+            </ul>
+        </nav>
+    </header>
+
+    <marquee style="color: #4ed9ff; font-weight: bold; background-color: #0b0c10; padding: 8px 0; font-size: 14px; border-radius: 4px; margin: 10px 0; display: block;">
+       If Server 1 is not working, please try using one of the other servers so you can continue watching without any problems.
+    </marquee>
+
+    <main class="watch-wrapper">
+        <div class="main-content">
+            <section class="player-container">
+                <div class="video-ratio-box">
+                    <iframe id="videoPlayer" src="about:blank" allowfullscreen allow="autoplay; encrypted-media" title="Anime Video Player"></iframe>
+                </div>
+                
+                <div class="server-selection">
+                    <span class="server-label">Servers:</span>
+                    <div class="server-buttons" id="serverButtonContainer" role="radiogroup" aria-label="Choose streaming server">
+                        <button id="btn-server1" class="server-btn">Server 1</button>
+                        <button id="btn-server2" class="server-btn">server 2</button>
+                        <button id="btn-server3" class="server-btn">Server 3</button>
+                        <button id="btn-server4" class="server-btn">Server 4</button>
+                        <button id="btn-server5" class="server-btn">Server 5</button>
+                        <button id="btn-server6" class="server-btn">Server 6</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="anime-metadata" aria-labelledby="animeTitleHeader">
+                <h1 id="animeTitleHeader" class="anime-title">Loading Anime...</h1>
+                <h2 id="episodeIndicator" class="episode-indicator">Episode --</h2>
+                <p id="animeDescription" class="anime-description"></p>
+            </section>
+        </div>
+
+        <aside class="sidebar-content" aria-labelledby="episodeListHeader">
+            <h3 id="episodeListHeader" class="sidebar-title">Episodes</h3>
+            <div class="episode-list-scroll">
+                <nav class="episode-list" id="episodeListContainer" aria-label="Episode navigation selection">
+                </nav>
+            </div>
+        </aside>
+    </main>
+
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

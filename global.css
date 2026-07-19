@@ -1,0 +1,57 @@
+:root {
+    --bg-main: #0b0c10;
+    --bg-card: #1f2833;
+    --accent: #45f3ff;
+    --text-main: #c5c6c7;
+    --text-light: #ffffff;
+    --font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-stack);
+    line-height: 1.6;
+}
+
+/* Alert/Announcement Banner */
+.announcement-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--accent);
+    color: var(--bg-main);
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.banner-close {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: var(--bg-main);
+}
+
+/* Base Content Grid Layout */
+.watch-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+@media (min-width: 992px) {
+    .watch-wrapper {
+        grid-template-columns: 3fr 1fr;
+    }
+}

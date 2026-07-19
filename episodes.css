@@ -1,0 +1,47 @@
+.sidebar-content {
+    background: var(--bg-card);
+    border-radius: 6px;
+    padding: 15px;
+    max-height: 680px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-title {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #2f3b4c;
+    padding-bottom: 8px;
+}
+
+.episode-list-scroll {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.episode-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ep-item {
+    display: block;
+    width: 100%;
+    background: #0f141c;
+    color: var(--text-main);
+    border: 1px solid #2f3b4c;
+    padding: 10px 15px;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.ep-item:hover, .ep-item.active {
+    background: #2f3b4c;
+    color: var(--accent);
+    border-color: var(--accent);
+}
