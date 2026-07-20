@@ -352,6 +352,7 @@ async function initializeWatchPlayer() {
       const viewportHeight = window.innerHeight;
       const gap = 6;
       const edgeMargin = 12;
+      const COMFORTABLE_HEIGHT = 320; // don't let the panel balloon just because there's room
 
       const spaceBelow = viewportHeight - toggleRect.bottom - gap - edgeMargin;
       const spaceAbove = toggleRect.top - gap - edgeMargin;
@@ -359,10 +360,10 @@ async function initializeWatchPlayer() {
       // Prefer opening downward; flip upward only if there's clearly more room there
       if (spaceBelow < 200 && spaceAbove > spaceBelow) {
         episodeDropdown.classList.add("flip-up");
-        menuEl.style.maxHeight = `${Math.max(150, spaceAbove)}px`;
+        menuEl.style.maxHeight = `${Math.min(COMFORTABLE_HEIGHT, Math.max(150, spaceAbove))}px`;
       } else {
         episodeDropdown.classList.remove("flip-up");
-        menuEl.style.maxHeight = `${Math.max(150, spaceBelow)}px`;
+        menuEl.style.maxHeight = `${Math.min(COMFORTABLE_HEIGHT, Math.max(150, spaceBelow))}px`;
       }
     }
 
