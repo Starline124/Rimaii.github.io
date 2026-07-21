@@ -9,8 +9,11 @@
     <link rel="icon" type="image/png" href="./icons/placeholder-icon-32.png">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0d0a12">
-    <link rel="stylesheet" href="./style.css?v=1784520037">
-    <link rel="stylesheet" href="./stylesheet.css?v=1784520037">
+    <link rel="stylesheet" href="./style.css?v=1784592806">
+    <link rel="stylesheet" href="./stylesheet.css?v=1784592806">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body>
     <header>
@@ -82,12 +85,28 @@
     </header>
 
    
-<marquee style="color: #a48cff; font-weight: bold; background-color: #180f22; padding: 8px 0; font-size: 14px; border-radius: 4px;">
-        Welcome to MTCH Enterprise-Anime! Stream your favorite series here at MTCH Enterpriseanime
-    </marquee>
+<div class="ticker-bar">
+    <div class="ticker-track">
+        <span class="ticker-item"><i class="fas fa-bolt"></i> Welcome to MTCH Enterprise-Anime! Stream your favorite series here at MTCH EnterpriseAnime</span>
+        <span class="ticker-item" aria-hidden="true"><i class="fas fa-bolt"></i> Welcome to MTCH Enterprise-Anime! Stream your favorite series here at MTCH EnterpriseAnime</span>
+    </div>
+</div>
 
-<br>
-<br> 
+<section class="hero-spotlight" id="heroSpotlight" aria-label="Featured anime">
+    <div class="hero-spotlight-backdrop" id="heroBackdrop"></div>
+    <div class="hero-spotlight-scrim"></div>
+    <div class="hero-spotlight-inner">
+        <div class="hero-spotlight-text">
+            <span class="hero-eyebrow"><i class="fas fa-fire"></i> Trending Now</span>
+            <h2 class="hero-title" id="heroTitle">Loading spotlight...</h2>
+            <div class="hero-meta" id="heroMeta"></div>
+            <div class="hero-actions">
+                <a href="#" id="heroWatchBtn" class="hero-watch-btn"><i class="fas fa-play"></i> Watch Now</a>
+                <a href="#" id="heroInfoBtn" class="hero-info-btn"><i class="fas fa-info-circle"></i> More Info</a>
+            </div>
+        </div>
+    </div>
+</section>
 
      
     <div id="search-results-section" style="display: none;">
@@ -149,6 +168,6 @@
 
 
 
-    <script src="script.js?v=1784520037"></script>
+    <script src="script.js?v=1784592806"></script>
 </body>
 </html>

@@ -15,6 +15,8 @@ query {
       id
       title { english romaji }
       coverImage { large }
+      bannerImage
+      genres
       episodes
       format
       nextAiringEpisode { episode }
@@ -44,18 +46,11 @@ if (anime.nextAiringEpisode) {
   <div class="anime-card">
   <div class="poster-container">
     <a href="anime-details.html?id=${anime.id}" class="poster-link">
-      <img src="${posterUrl}" alt="${mainTitle}" class="poster-image">
+      <img src="${posterUrl}" alt="${mainTitle}" class="poster-image" loading="lazy">
     </a>
     <span class="format-badge">${animeFormat}</span>
+    <span class="play-hint"><i class="fas fa-play"></i></span>
     <div class="info-overlay">
-      <div class="badge-group">
-        <span class="badge badge-sub">
-          <i class="fas fa-closed-captioning"></i> ${totalEpisodes}
-        </span>
-        <span class="badge badge-dub">
-          <i class="fas fa-microphone"></i> ${totalEpisodes}
-        </span>
-      </div>
       <span class="ep-count">
         <i class="fas fa-layer-group"></i> ${totalEpisodes} EP
       </span>
@@ -97,6 +92,41 @@ function renderTrendingPage(page = 1) {
     nextBtn.disabled = trendingPage >= pageCount;
 }
 
+function buildHeroSpotlight(anime) {
+    const heroSection = document.getElementById("heroSpotlight");
+    if (!heroSection || !anime) return;
+
+    const mainTitle = anime.title.english || anime.title.romaji;
+    const backdrop = anime.bannerImage || anime.coverImage.large;
+    const animeFormat = anime.format || "TV";
+
+    let totalEpisodes = "?";
+    if (anime.nextAiringEpisode) {
+        totalEpisodes = anime.nextAiringEpisode.episode - 1;
+    } else if (anime.episodes) {
+        totalEpisodes = anime.episodes;
+    } else {
+        totalEpisodes = 1;
+    }
+
+    const genreChips = (anime.genres || [])
+        .slice(0, 3)
+        .map(g => `<span class="hero-meta-chip">${g}</span>`)
+        .join("");
+
+    document.getElementById("heroBackdrop").style.backgroundImage = `url('${backdrop}')`;
+    document.getElementById("heroTitle").textContent = mainTitle;
+    document.getElementById("heroMeta").innerHTML = `
+        <span class="hero-meta-chip hero-meta-chip-solid">${animeFormat}</span>
+        <span class="hero-meta-chip">${totalEpisodes} EP</span>
+        ${genreChips}
+    `;
+    document.getElementById("heroWatchBtn").href = `watch.html?id=${anime.id}`;
+    document.getElementById("heroInfoBtn").href = `anime-details.html?id=${anime.id}`;
+    heroSection.classList.add("is-loaded");
+}
+
+
 async function loadHomepageDatabase() {
     const recommendedContainer = document.getElementById("recommended-container");
     const trendingContainer = document.getElementById("trending-container");
@@ -132,10 +162,18 @@ async function loadHomepageDatabase() {
         trendingAnimeList = trendingList;
         renderTrendingPage(1);
 
+        if (trendingList.length > 0) {
+            const spotlightPool = trendingList.slice(0, 5);
+            const spotlightPick = spotlightPool[Math.floor(Math.random() * spotlightPool.length)];
+            buildHeroSpotlight(spotlightPick);
+        }
+
     } catch (error) {
         const errorTemplate = `<p style="color: #ff3e6c; padding-left: 5px; grid-column: 1 / -1;">Error loading row contents: ${error.message}</p>`;
         recommendedContainer.innerHTML = errorTemplate;
         trendingContainer.innerHTML = errorTemplate;
+        const heroSection = document.getElementById("heroSpotlight");
+        if (heroSection) heroSection.style.display = "none";
     }
 }
 

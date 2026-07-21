@@ -220,13 +220,13 @@ a {
     letter-spacing: 0.5px;
     padding: 14px 50px; 
     border-radius: 6px;
-    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+    box-shadow: 0 4px 14px rgba(124, 77, 255, 0.4);
     transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
 }
 
 .play-now-btn:hover {
     background-color: #008ecf;
-    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.6);
+    box-shadow: 0 6px 18px rgba(124, 77, 255, 0.6);
 }
 
 .play-now-btn:active {
@@ -254,10 +254,222 @@ a {
         
         .section-title {
             color: #ffffff;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 20px 20px 5px 20px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            padding: 34px 24px 16px 24px;
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(124, 77, 255, 0.28), rgba(164, 140, 255, 0.08));
+            border: 1px solid rgba(164, 140, 255, 0.25);
+            color: var(--accent, #a48cff);
+            font-size: 14px;
+        }
+
+        /* --- Ticker bar (replaces deprecated <marquee>) --- */
+        .ticker-bar {
+            background: linear-gradient(90deg, #17111f 0%, #1e1730 50%, #17111f 100%);
+            border-top: 1px solid rgba(164, 140, 255, 0.12);
+            border-bottom: 1px solid rgba(164, 140, 255, 0.12);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 10px 0;
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            width: max-content;
+            animation: tickerScroll 22s linear infinite;
+        }
+
+        .ticker-bar:hover .ticker-track {
+            animation-play-state: paused;
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 40px;
+            color: var(--accent, #a48cff);
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+
+        @keyframes tickerScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ticker-track { animation: none; }
+        }
+
+        /* --- Hero spotlight banner --- */
+        .hero-spotlight {
+            position: relative;
+            width: 100%;
+            height: 46vh;
+            min-height: 320px;
+            max-height: 480px;
+            overflow: hidden;
+            background-color: #150e1e;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hero-spotlight.is-loaded {
+            opacity: 1;
+        }
+
+        .hero-spotlight-backdrop {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center 20%;
+            transform: scale(1.02);
+        }
+
+        .hero-spotlight-scrim {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(13,10,18,0.97) 0%, rgba(13,10,18,0.8) 30%, rgba(13,10,18,0.35) 60%, rgba(13,10,18,0.1) 100%),
+                linear-gradient(0deg, rgba(13,10,18,1) 0%, rgba(13,10,18,0.15) 42%, rgba(13,10,18,0) 68%);
+        }
+
+        .hero-spotlight-inner {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero-spotlight-text {
+            max-width: 580px;
+            padding-bottom: 40px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #c9b8ff;
+            background: rgba(124, 77, 255, 0.18);
+            border: 1px solid rgba(164, 140, 255, 0.35);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-family: "Poppins", sans-serif;
+            font-size: clamp(26px, 3.6vw, 42px);
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 14px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .hero-meta-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: #d8d2e6;
+            padding: 4px 11px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-meta-chip-solid {
+            background: var(--accent-strong, #7c4dff);
+            border-color: var(--accent-strong, #7c4dff);
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .hero-watch-btn, .hero-info-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .hero-watch-btn {
+            background: #ffffff;
+            color: #150e1e;
+        }
+
+        .hero-watch-btn:hover {
+            background: var(--accent, #a48cff);
+            color: #150e1e;
+            transform: translateY(-2px);
+        }
+
+        .hero-info-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            backdrop-filter: blur(6px);
+            font-weight: 600;
+        }
+
+        .hero-info-btn:hover {
+            background: rgba(255, 255, 255, 0.16);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-spotlight { height: 56vh; min-height: 360px; }
+            .hero-spotlight-text { max-width: 100%; padding-bottom: 28px; }
+            .hero-title { -webkit-line-clamp: 3; }
+            .hero-watch-btn, .hero-info-btn { padding: 10px 18px; font-size: 13px; }
         }
 
         
@@ -578,7 +790,7 @@ a {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
@@ -590,10 +802,10 @@ a {
   border-radius: 10px;
   overflow: hidden;
   aspect-ratio: 2 / 3;
-  background-color: #0b111e;
+  background-color: #150e1e;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+  border: 1px solid transparent;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .poster-link {
@@ -622,7 +834,8 @@ a {
   
   .anime-card:hover .poster-container {
     transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(0,0,0,0.6);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(164, 140, 255, 0.3);
+    border-color: rgba(164, 140, 255, 0.5);
   }
   
   
@@ -632,7 +845,12 @@ a {
 
   
   .anime-card:hover .card-title a {
-    color: #3b82f6;
+    color: var(--accent, #a48cff);
+  }
+
+  .anime-card:hover .play-hint {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
@@ -646,7 +864,7 @@ a {
 
 
 .anime-card:active .card-title a {
-  color: #3b82f6;
+  color: var(--accent, #a48cff);
   opacity: 0.9;
 }
 
@@ -656,16 +874,37 @@ a {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(21, 14, 30, 0.85);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  color: #cbd5e1;
+  color: #d8d2e6;
   font-size: 10px;
   font-weight: 700;
   padding: 4px 8px;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  pointer-events: none;
+  border: 1px solid rgba(164, 140, 255, 0.2);
+}
+
+.play-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(124, 77, 255, 0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 15px;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none;
 }
 
@@ -675,40 +914,23 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(11, 17, 30, 0.95) 0%, rgba(11, 17, 30, 0.6) 60%, rgba(11, 17, 30, 0) 100%);
+  background: linear-gradient(to top, rgba(13, 10, 18, 0.95) 0%, rgba(13, 10, 18, 0.55) 65%, rgba(13, 10, 18, 0) 100%);
   padding: 20px 10px 10px 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 4px;
+  justify-content: flex-end;
   pointer-events: none;
 }
 
 
-.badge-group {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.badge {
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 6px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.badge-sub { background-color: #3b82f6; }
-.badge-dub { background-color: #ef4444; }
-
 .ep-count {
   font-size: 11px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #e5e1ee;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 3px 8px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -716,6 +938,7 @@ a {
 
 .ep-count i {
   font-size: 9px;
+  color: var(--accent, #a48cff);
 }
 
 
