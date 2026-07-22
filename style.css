@@ -132,7 +132,7 @@ header {
     width: 200px;
     z-index: 1000001;
     background-color: var(--color2);
-    border: 1px solid #2d3748;
+    border: 1px solid #3a2c50;
     border-radius: 8px;
     padding: 16px 20px;
     box-shadow: 0 18px 38px rgba(0,0,0,.35);
@@ -204,7 +204,7 @@ header {
     max-height: 92vh; 
     overflow-y: auto;
     background: #1c1229;
-    border: 1px solid #2d3748;
+    border: 1px solid #3a2c50;
     border-radius: 10px;
     padding: 8px; 
     display: grid;
@@ -246,7 +246,7 @@ header {
 }
 
 .genre-link:hover, .types-link:hover {
-    background: #1f2937;
+    background: #2a2138;
     transform: translateY(-1px);
 }
 
@@ -304,14 +304,28 @@ header {
 
 .responsive-index-title, #search-results-section h2 {
     color: #ffffff !important;
-    font-size: 22px;
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
     font-weight: 700;
-    margin: 10px 0 18px 0;
+    margin: 10px 0 22px 0;
     display: flex;
     align-items: center;
-    gap: 10px;
-    letter-spacing: 0.3px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    gap: 14px;
+    letter-spacing: 0.2px;
+}
+
+.responsive-index-title i, #search-results-section h2 i {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(124, 77, 255, 0.28), rgba(164, 140, 255, 0.08));
+    border: 1px solid rgba(164, 140, 255, 0.25);
+    color: var(--accent, #a48cff);
+    font-size: 15px;
 }
 
 /* All Anime index: 7 cards per row (7x3 = 21 per page) */
@@ -352,8 +366,8 @@ header {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-color: #1a2c38;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%234ed9ff' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+    background-color: #1c1229;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a48cff' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
     background-repeat: no-repeat;
     background-position: calc(100% - 14px) center;
     color: #ffffff;
@@ -371,7 +385,7 @@ header {
 }
 
 .filter-bar select:hover {
-    background-color: #223a4a;
+    background-color: #241a35;
     border-color: #a48cff;
     box-shadow: 0 4px 14px rgba(164, 140, 255, 0.15);
 }
@@ -485,12 +499,26 @@ header {
 
 .characters-title {
     color: #ffffff;
+    font-family: "Poppins", sans-serif;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+}
+
+.characters-title i {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(124, 77, 255, 0.28), rgba(164, 140, 255, 0.08));
+    border: 1px solid rgba(164, 140, 255, 0.25);
+    color: var(--accent, #a48cff);
+    font-size: 13px;
 }
 
 .characters-scroll-container {
@@ -499,18 +527,18 @@ header {
     overflow-x: auto;
     padding-bottom: 15px;
     scrollbar-width: thin;
-    scrollbar-color: #2b1f40 #180f22;
+    scrollbar-color: #7c4dff #170f22;
 }
 
 .characters-scroll-container::-webkit-scrollbar { height: 8px; }
-.characters-scroll-container::-webkit-scrollbar-track { background: #180f22; }
-.characters-scroll-container::-webkit-scrollbar-thumb { background-color: #2b1f40; border-radius: 4px; }
+.characters-scroll-container::-webkit-scrollbar-track { background: #170f22; border-radius: 8px; }
+.characters-scroll-container::-webkit-scrollbar-thumb { background-color: #7c4dff; border-radius: 8px; }
 
 .character-card {
     flex: 0 0 110px;
-    background-color: #14222b;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
+    background-color: #1c1229;
+    border: 1px solid #3a2c50;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -518,6 +546,12 @@ header {
     text-align: center;
     padding-bottom: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.character-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(164, 140, 255, 0.5);
 }
 
 .character-img {
@@ -542,11 +576,165 @@ header {
 }
 
 .character-role {
-    color: #8bdcff;
+    color: var(--accent, #a48cff);
     font-size: 9px;
     text-transform: uppercase;
     margin-top: 2px;
     letter-spacing: 0.5px;
+}
+
+/* --- Anime details page: banner + poster + info column --- */
+.details-banner {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background-color: #150e1e;
+    background-size: cover;
+    background-position: center 25%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.details-banner.is-loaded {
+    opacity: 1;
+}
+
+.details-banner-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--bg-main, #0d0a12) 0%, rgba(13,10,18,0.4) 55%, rgba(13,10,18,0.15) 100%);
+}
+
+.main-layout-container {
+    max-width: 1100px;
+    margin: -120px auto 30px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.details-flex-wrapper {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.left-poster-column {
+    flex: 0 0 240px;
+    width: 240px;
+    margin: 0 auto;
+}
+
+.details-poster {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    border: 1px solid rgba(164, 140, 255, 0.2);
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+}
+
+.details-play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #ffffff;
+    color: #150e1e;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
+
+.details-play-btn:hover {
+    background-color: var(--accent, #a48cff);
+    color: #150e1e;
+    transform: translateY(-2px);
+}
+
+.right-info-column {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 130px;
+}
+
+.details-title {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0;
+    text-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.metadata-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.details-rating-chip {
+    color: #fbbf24 !important;
+}
+
+.genres-badges-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.genre-badge {
+    background-color: rgba(124, 77, 255, 0.15);
+    border: 1px solid rgba(164, 140, 255, 0.3);
+    color: #c9b8ff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.synopsis-block {
+    border-top: 1px solid rgba(164, 140, 255, 0.12);
+    padding-top: 18px;
+    margin-top: 5px;
+}
+
+.synopsis-heading {
+    color: var(--accent, #a48cff);
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.synopsis-text {
+    color: #cbc3db;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+    text-align: left;
+}
+
+@media (max-width: 640px) {
+    .details-banner { height: 200px; }
+    .main-layout-container { margin-top: -80px; }
+    .right-info-column { padding-top: 0; }
+    .left-poster-column { flex-basis: 200px; width: 200px; }
 }
 
 @media (max-width: 900px) {

@@ -44,7 +44,7 @@ a {
 }
 
 .follow-us-label {
-    color: #8bdcff;
+    color: #a48cff;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
@@ -100,7 +100,7 @@ a {
     position: relative;
     
     
-    background-color: #14222b;
+    background-color: #1c1229;
     background-size: cover;
     background-position: center top;
 }
@@ -225,7 +225,7 @@ a {
 }
 
 .play-now-btn:hover {
-    background-color: #008ecf;
+    background-color: #6738e0;
     box-shadow: 0 6px 18px rgba(124, 77, 255, 0.6);
 }
 
@@ -757,8 +757,8 @@ a {
 
 
 .version-tag {
-  background-color: #1e1f29;
-  color: #707dfd;
+  background-color: #1c1229;
+  color: #a48cff;
   font-size: 0.75rem;
   font-weight: 700;
   padding: 3px 8px;

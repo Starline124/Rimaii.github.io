@@ -259,6 +259,11 @@ if (video && image) {
 function injectSafeTutorialModal() {
     if (localStorage.getItem("MTCH Enterprise_seen_guide_v2")) return;
 
+    // This tutorial only makes sense on the homepage (search bar, genre filters,
+    // clicking into cards) — don't show it on watch/details/browse pages where
+    // it would just sit on top of the page blocking clicks with irrelevant copy.
+    if (!document.getElementById("heroSpotlight")) return;
+
     const cssStyle = document.createElement("style");
     cssStyle.textContent = `
         .m-modal-overlay {
@@ -269,21 +274,21 @@ function injectSafeTutorialModal() {
             padding: 20px; box-sizing: border-box;
         }
         .m-modal-card {
-            background: #1c1229; border: 1px solid #1f3747; color: #fff;
+            background: #1c1229; border: 1px solid #3a2c50; color: #fff;
             padding: 30px; border-radius: 12px; max-width: 460px; width: 100%;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7); transform: translateY(-20px);
             transition: transform 0.4s ease; position: relative; box-sizing: border-box;
         }
         .m-modal-close {
-            position: absolute; top: 15px; right: 20px; color: #7f8c8d;
+            position: absolute; top: 15px; right: 20px; color: #a89bc2;
             font-size: 26px; cursor: pointer; transition: color 0.2s;
         }
         .m-modal-close:hover { color: #e74c3c; }
         .m-title { color: #a48cff; font-size: 22px; margin: 0 0 5px 0; font-weight: 600; }
-        .m-subtitle { color: #8a99a6; font-size: 13px; margin: 0 0 20px 0; line-height: 1.4; }
+        .m-subtitle { color: #a89bc2; font-size: 13px; margin: 0 0 20px 0; line-height: 1.4; }
         .m-step { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
         .m-icon { background: rgba(164, 140, 255, 0.1); color: #a48cff; min-width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-        .m-text { font-size: 13.5px; color: #d1dbe3; line-height: 1.5; }
+        .m-text { font-size: 13.5px; color: #cbc3db; line-height: 1.5; }
         .m-text strong { color: #fff; display: block; margin-bottom: 2px; }
         .m-btn { width: 100%; background: #7c4dff; color: #fff; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
         .m-btn:hover { background: #6738e0; }
@@ -331,6 +336,11 @@ function injectSafeTutorialModal() {
 
     overlay.querySelector(".m-modal-close").addEventListener("click", closeGuide);
     overlay.querySelector(".m-btn").addEventListener("click", closeGuide);
+    // Safety net: clicking the dimmed backdrop itself should also dismiss the
+    // guide, so it can never get stuck covering the page with no obvious way out.
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) closeGuide();
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
