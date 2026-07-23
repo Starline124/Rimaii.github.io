@@ -343,6 +343,10 @@ a {
             transform: scale(1.02);
         }
 
+        .hero-spotlight.is-loaded .hero-spotlight-backdrop {
+            animation: kenBurns 18s ease-out infinite alternate;
+        }
+
         .hero-spotlight-scrim {
             position: absolute;
             inset: 0;
@@ -381,6 +385,7 @@ a {
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 16px;
+            opacity: 0;
         }
 
         .hero-title {
@@ -395,6 +400,7 @@ a {
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            opacity: 0;
         }
 
         .hero-meta {
@@ -403,6 +409,7 @@ a {
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 24px;
+            opacity: 0;
         }
 
         .hero-meta-chip {
@@ -427,7 +434,13 @@ a {
         .hero-actions {
             display: flex;
             gap: 12px;
+            opacity: 0;
         }
+
+        .hero-spotlight.is-loaded .hero-eyebrow { animation: fadeInUp 0.5s ease 0.1s both; }
+        .hero-spotlight.is-loaded .hero-title { animation: fadeInUp 0.5s ease 0.2s both; }
+        .hero-spotlight.is-loaded .hero-meta { animation: fadeInUp 0.5s ease 0.32s both; }
+        .hero-spotlight.is-loaded .hero-actions { animation: fadeInUp 0.5s ease 0.44s both; }
 
         .hero-watch-btn, .hero-info-btn {
             display: inline-flex;
@@ -793,6 +806,27 @@ a {
   font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+  animation: fadeInUp 0.45s ease calc(var(--card-index, 0) * 35ms) both;
+}
+
+.skeleton-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.skeleton-poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+}
+
+.skeleton-line {
+  height: 13px;
+  width: 80%;
+  margin-top: 12px;
+  border-radius: 4px;
 }
 
 

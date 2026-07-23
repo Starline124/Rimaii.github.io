@@ -24,10 +24,11 @@ query {
   }
 }`;
 
-function generateCardHtml(anime) {
+function generateCardHtml(anime, index = 0) {
     const mainTitle = anime.title.english || anime.title.romaji;
     const posterUrl = anime.coverImage.large;
     const animeFormat = anime.format || "TV";
+    const staggerDelay = Math.min(index, 20); // cap so huge lists don't get a long tail delay
     
     let totalEpisodes = "?";
 
@@ -43,7 +44,7 @@ if (anime.nextAiringEpisode) {
 
 
     return `
-  <div class="anime-card">
+  <div class="anime-card" style="--card-index: ${staggerDelay};">
   <div class="poster-container">
     <a href="anime-details.html?id=${anime.id}" class="poster-link">
       <img src="${posterUrl}" alt="${mainTitle}" class="poster-image" loading="lazy">
@@ -84,7 +85,7 @@ function renderTrendingPage(page = 1) {
     if (pageItems.length === 0) {
         trendingContainer.innerHTML = "<p style='padding-left: 5px; color: #a48cff; width: 100%; grid-column: 1 / -1;'>No trending anime available.</p>";
     } else {
-        trendingContainer.insertAdjacentHTML("beforeend", pageItems.map(anime => generateCardHtml(anime)).join(""));
+        trendingContainer.insertAdjacentHTML("beforeend", pageItems.map((anime, i) => generateCardHtml(anime, i)).join(""));
     }
 
     pageIndicator.textContent = `Page ${trendingPage} of ${pageCount}`;
@@ -156,7 +157,7 @@ async function loadHomepageDatabase() {
         recommendedContainer.innerHTML = "";
         trendingContainer.innerHTML = "";
 
-        const recommendedMarkup = recommendedList.map(anime => generateCardHtml(anime)).join("");
+        const recommendedMarkup = recommendedList.map((anime, i) => generateCardHtml(anime, i)).join("");
         recommendedContainer.insertAdjacentHTML("beforeend", recommendedMarkup + recommendedMarkup);
 
         trendingAnimeList = trendingList;
@@ -346,6 +347,23 @@ function injectSafeTutorialModal() {
 document.addEventListener("DOMContentLoaded", () => {
     injectSafeTutorialModal();
 
+    // Generic scroll-reveal: fade+slide in any .reveal-on-scroll element as it
+    // enters the viewport. Reusable across pages (trending row, detail sections, etc).
+    const revealTargets = document.querySelectorAll(".reveal-on-scroll");
+    if (revealTargets.length && "IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -80px 0px" });
+        revealTargets.forEach(el => revealObserver.observe(el));
+    } else {
+        revealTargets.forEach(el => el.classList.add("in-view"));
+    }
+
     const navMenu = document.querySelector(".menu");
     if (navMenu) {
         const existingAllAnimeLink = Array.from(navMenu.querySelectorAll("a")).find(a => a.textContent.includes("All Anime"));
@@ -427,8 +445,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                results.forEach(anime => {
-                    allAnimeContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime));
+                results.forEach((anime, i) => {
+                    allAnimeContainer.insertAdjacentHTML("beforeend", generateCardHtml(anime, i));
                 });
                 document.getElementById("page-indicator").textContent = `Page ${page}`;
                 updateTitleText();

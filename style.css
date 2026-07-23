@@ -4,6 +4,77 @@
     padding: 0;
 }
 
+@keyframes pageFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kenBurns {
+    from { transform: scale(1.0); }
+    to { transform: scale(1.09); }
+}
+
+@keyframes shimmerSweep {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+}
+
+@keyframes softPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+body {
+    animation: pageFadeIn 0.35s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.skeleton-box {
+    background: linear-gradient(90deg, #1a1424 25%, #241a35 37%, #1a1424 63%);
+    background-size: 800px 100%;
+    animation: shimmerSweep 1.6s linear infinite;
+    border-radius: 10px;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid rgba(164, 140, 255, 0.25);
+    border-top-color: var(--accent, #a48cff);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 body {
     font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
     --color1: #FFF ;
@@ -547,6 +618,8 @@ header {
     padding-bottom: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+    animation: fadeInUp 0.4s ease calc(var(--card-index, 0) * 60ms) both;
 }
 
 .character-card:hover {
@@ -598,6 +671,7 @@ header {
 
 .details-banner.is-loaded {
     opacity: 1;
+    animation: kenBurns 18s ease-out infinite alternate;
 }
 
 .details-banner-scrim {
@@ -627,6 +701,17 @@ header {
     flex: 0 0 240px;
     width: 240px;
     margin: 0 auto;
+    animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+.right-info-column {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 130px;
+    animation: fadeInUp 0.5s ease 0.22s both;
 }
 
 .details-poster {
@@ -660,15 +745,6 @@ header {
     background-color: var(--accent, #a48cff);
     color: #150e1e;
     transform: translateY(-2px);
-}
-
-.right-info-column {
-    flex: 1;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-top: 130px;
 }
 
 .details-title {
@@ -789,4 +865,18 @@ header {
         width: 100%;
         background-position: calc(100% - 16px) center;
     }
+}
+
+/* Unified press feedback across every clickable control site-wide.
+   Placed last so it wins the cascade over any earlier :hover transforms. */
+.hero-watch-btn:active, .hero-info-btn:active,
+.details-play-btn:active,
+.server-btn:active, .range-tab:active, .ep-item:active,
+.m-btn:active, .m-modal-close:active,
+.trending-controls button:active, .unified-controls button:active,
+.episode-dropdown-toggle:active,
+.genre-link:active, .types-link:active,
+.logo-placeholder:active {
+    transform: scale(0.95) !important;
+    transition: transform 0.1s ease !important;
 }

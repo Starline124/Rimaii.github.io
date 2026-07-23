@@ -9,12 +9,12 @@
     <link rel="icon" type="image/png" href="./icons/placeholder-icon-32.png">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0d0a12">
-    <link rel="stylesheet" href="./style.css?v=1784704051">
+    <link rel="stylesheet" href="./style.css?v=1784776182">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./stylesheet.css?v=1784704051">
+    <link rel="stylesheet" href="./stylesheet.css?v=1784776182">
 </head>
 <body>
     <header>
@@ -89,7 +89,7 @@
             </div>
 
             <div class="right-info-column">
-                <h1 id="anime-title" class="details-title">Loading Anime Title...</h1>
+                <h1 id="anime-title" class="details-title"><span class="loading-spinner"></span> Loading Anime Title...</h1>
 
                 <div class="metadata-row" id="metadata-row">
                     <span class="hero-meta-chip hero-meta-chip-solid" id="anime-format">--</span>
@@ -230,14 +230,14 @@ async function loadDynamicTemplate() {
     if (characterEdges.length === 0) {
       charactersContainer.innerHTML = `<p style="color: #a89bc2; font-size: 13px;">No character profiles linked to this title.</p>`;
     } else {
-      characterEdges.forEach(edge => {
+      characterEdges.forEach((edge, i) => {
         const character = edge.node;
         const role = edge.role === "MAIN" ? "Main" : "Supporting";
         const charName = character.name.full;
         const charImg = character.image.large || "https://anilist.co/img/icons/icon.svg";
 
         const cardHtml = `
-          <div class="character-card">
+          <div class="character-card" style="--card-index: ${i};">
             <img src="${charImg}" alt="${charName}" class="character-img" loading="lazy">
             <span class="character-name" title="${charName}">${charName}</span>
             <span class="character-role">${role}</span>
@@ -259,6 +259,6 @@ async function loadDynamicTemplate() {
 
 loadDynamicTemplate();
     </script>
-    <script src="./script.js?v=1784704051"></script>
+    <script src="./script.js?v=1784776182"></script>
 </body>
 </html>
